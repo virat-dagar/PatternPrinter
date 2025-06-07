@@ -1,187 +1,187 @@
-def rectangle_solid(l, b):
+def rectangle_solid(design, l, b):
     # Print a solid rectangle of dimensions l x b
     for i in range(b):
         for j in range(l):
-            print('* ', end='')
+            print(f'{design} ', end='')
         print()
 
-def rectangle_hollow(l, b):
+def rectangle_hollow(design, l, b):
     # Print a hollow rectangle with stars only at borders
     for i in range(b):
         for j in range(l):
             if i == 0 or i == b-1 or j == 0 or j == l-1:
-                print('* ', end='')
+                print(f'{design} ', end='')
             else:
                 print('  ', end='')
         print()
 
-def right_angle_tri_hypo_right(n):
+def right_angle_tri_hypo_right(design, n):
     # Triangle with right angle on bottom-left; hypotenuse goes right
     for i in range(n):
         for j in range(i+1):
-            print('*', end='')
+            print(f'{design}', end='')
         print()
 
-def right_angle_tri_hypo_right_reverse(n):
+def right_angle_tri_hypo_right_reverse(design, n):
     # Reversed version; right angle on top-left; hypotenuse goes right and down
     for i in range(n):
         for j in range(i, n):
-            print('*', end='')
+            print(f'{design}', end='')
         print()
 
-def right_angle_tri_hypo_right_reverse_holllow(n):
+def right_angle_tri_hypo_right_reverse_holllow(design, n):
     # Hollow reversed right triangle; border stars only
     for i in range(n):
         for j in range(i, n):
             if i == 0 or i == n-1:
-                print('*', end='')  # Top or bottom row is fully filled
+                print(f'{design}', end='')  # Top or bottom row is fully filled
             elif j == i or j == n-1:
-                print('*', end='')  # Diagonal or last column
+                print(f'{design}', end='')  # Diagonal or last column
             else:
                 print(' ', end='')
         print()
 
-def right_angle_tri_hypo_right_hollow(n):
+def right_angle_tri_hypo_right_hollow(design, n):
     # Hollow triangle with hypotenuse on right side
     for i in range(n):
         for j in range(i+1):
             if i == 0 or i == n-1:
-                print('*', end='')  # Top and bottom fully filled
+                print(f'{design}', end='')  # Top and bottom fully filled
             elif j == 0 or j == i:
-                print('*', end='')  # Borders of triangle
+                print(f'{design}', end='')  # Borders of triangle
             else:
                 print(' ', end='')
         print()
 
-def right_angle_tri_hypo_left(n):
+def right_angle_tri_hypo_left(design, n):
     # Right triangle aligned rightwards; right angle on bottom-right
     for i in range(1, n+1):
         for j in range(i, n):
             print(' ', end='')  # Left padding
         for j in range(i):
-            print('*', end='')
+            print(f'{design}', end='')
         print()
 
-def right_angle_tri_hypo_left_reverse(n):
+def right_angle_tri_hypo_left_reverse(design, n):
     # Reversed triangle; right angle on top-right
     for i in range(n):
         for j in range(i):
             print(' ', end='')  # Leading spaces
         for j in range(i, n):
-            print('*', end='')
+            print(f'{design}', end='')
         print()
 
-def right_angle_tri_hypo_left_reverse_hollow(n):
+def right_angle_tri_hypo_left_reverse_hollow(design, n):
     # Currently prints solid reversed left triangle
     for i in range(n):
         for j in range(i):
             print(' ', end='')
         for j in range(i, n):
-            print('*', end='')
+            print(f'{design}', end='')
         print()
     # Note: can be modified to add hollow logic if desired
 
-def right_angle_tri_hypo_left_hollow(n):
+def right_angle_tri_hypo_left_hollow(design, n):
     # Hollow triangle with right angle bottom-right, aligned to right
     for i in range(1, n+1):
         for j in range(i, n):
             print(' ', end='')  # Left padding
         for j in range(i):
             if j == 0 or j == i-1 or i == n:
-                print('*', end='')  # Borders and base
+                print(f'{design}', end='')  # Borders and base
             else:
                 print(' ', end='')
         print()
 
-def hill(n):
+def hill(design, n):
     # Full pyramid (hill) pattern; center-aligned
     for i in range(n):
         for j in range(i, n-1):
             print(' ', end='')  # Left padding
         for j in range(i):
-            print('*', end='')  # Left half
+            print(f'{design}', end='')  # Left half
         for j in range(i+1):
-            print('*', end='')  # Right half
+            print(f'{design}', end='')  # Right half
         print()
 
-def hill_reverse(n):
+def hill_reverse(design, n):
     # Inverted pyramid; base at top
     for i in range(n):
         for j in range(i):
             print(' ', end='')  # Left padding
         for j in range(i, n):
-            print('*', end='')  # Left half
+            print(f'{design}', end='')  # Left half
         for j in range(i, n-1):
-            print('*', end='')  # Right half
+            print(f'{design}', end='')  # Right half
         print()
 
-def hill_reverse_hollow(n):
+def hill_reverse_hollow(design, n):
     # Hollow version of inverted hill
     for i in range(n):
         for j in range(i):
             print(' ', end='')
         for j in range(i, n):
             if i == 0 or i == n-1 or j == i:
-                print('*', end='')  # Top row or left border
+                print(f'{design}', end='')  # Top row or left border
             else:
                 print(' ', end='')
         for j in range(i, n-1):
             if i == 0 or i == n-1 or j == n-2:
-                print('*', end='')  # Top row or right border
+                print(f'{design}', end='')  # Top row or right border
             else:
                 print(' ', end='')
         print()
 
-def hill_hollow(n):
+def hill_hollow(design, n):
     # Hollow hill/pyramid with stars on boundary only
     for i in range(n):
         for j in range(i, n):
             print(' ', end='')  # Left padding
         for j in range(i):
             if i == 0 or i == n-1 or j == 0:
-                print('*', end='')  # Left slope
+                print(f'{design}', end='')  # Left slope
             else:
                 print(' ', end='')
         for j in range(i+1):
             if j == i or i == 0 or i == n-1:
-                print('*', end='')  # Right slope
+                print(f'{design}', end='')  # Right slope
             else:
                 print(' ', end='')
         print()
 
-def diamond_printing_with_for_loop(n):
+def diamond_printing_with_for_loop(design, n):
     # Diamond pattern by merging upward and downward pyramids
     for i in range(n - 1):
         for j in range(i, n-1):
             print(' ', end='')  # Left padding
         for j in range(i):
-            print('*', end='')
+            print(f'{design}', end='')
         for j in range(i + 1):
-            print('*', end='')
+            print(f'{design}', end='')
         print()
         
     for i in range(n):
         for j in range(i):
             print(' ', end='')
         for j in range(i, n - 1):
-            print('*', end='')
+            print(f'{design}', end='')
         for j in range(i, n):
-            print('*', end='')
+            print(f'{design}', end='')
         print()
 
-def diamond_printing_with_for_loop_holllow(n):
+def diamond_printing_with_for_loop_holllow(design, n):
     # Hollow diamond pattern
     for i in range(n):
         for j in range(i, n-1):
             print(' ', end='')
         for j in range(i):
             if j == 0:
-                print('*', end='')  # Left slope
+                print(f'{design}', end='')  # Left slope
             else:
                 print(' ', end='')
         for j in range(i+1):
             if j == i:
-                print('*', end='')  # Right slope
+                print(f'{design}', end='')  # Right slope
             else:
                 print(' ', end='')   
         print()
@@ -191,12 +191,12 @@ def diamond_printing_with_for_loop_holllow(n):
             print(' ', end='')
         for j in range(i, n-1):
             if j == i:
-                print('*', end='')  # Left slope
+                print(f'{design}', end='')  # Left slope
             else:
                 print(' ', end='')   
         for j in range(i, n-2):
             if j == n-3:
-                print('*', end='')  # Right slope
+                print(f'{design}', end='')  # Right slope
             else:
                 print(' ', end='')
         print()
@@ -252,10 +252,12 @@ try:
         if 'rectangle' in pattern_name.lower():
             l = int(input('Enter length of rectangle: '))
             b = int(input('Enter breadth of rectangle: '))
-            patterns[pattern_name](l, b)
+            design = input('enter the design you would like the pattern to be in: ')
+            patterns[pattern_name](design, l, b)
         else:
             n = int(input('Enter number of lines: '))
-            patterns[pattern_name](n)
+            design = input('enter the design you would like the pattern to be in: ')
+            patterns[pattern_name](design, n)
     else:
         print("Invalid serial number. Please try again.")
 except ValueError:
