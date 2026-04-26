@@ -40,7 +40,8 @@ select {
 }
 
 .app-shell {
-  width: min(1720px, calc(100vw - 36px));
+  min-width: min(1280px, calc(100vw - 36px));
+  width: max-content;
   min-height: 100vh;
   margin: 0 auto;
   display: grid;
@@ -102,12 +103,13 @@ h1 {
 
 .workspace {
   display: grid;
-  grid-template-columns: 390px minmax(0, 1fr);
+  grid-template-columns: 390px 220px max-content;
   gap: 18px;
   align-items: stretch;
 }
 
 .control-panel,
+.limits-panel,
 .preview-stage {
   border: 1px solid rgba(223, 229, 236, 0.94);
   border-radius: 8px;
@@ -119,6 +121,10 @@ h1 {
 .control-panel {
   display: grid;
   gap: 14px;
+  padding: 18px;
+}
+
+.limits-panel {
   padding: 18px;
 }
 
@@ -253,7 +259,42 @@ input:disabled {
   font-size: 14px;
 }
 
+.limits-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.limits-list div {
+  display: grid;
+  gap: 5px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.limits-list div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.limits-list dt {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.limits-list dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 22px;
+  font-weight: 850;
+  line-height: 1;
+}
+
 .preview-stage {
+  width: max-content;
+  min-width: 872px;
   min-height: 710px;
   overflow: auto;
   display: grid;
@@ -293,6 +334,8 @@ input:disabled {
 }
 
 .preview-canvas {
+  width: max-content;
+  min-width: 100%;
   min-height: 0;
   display: block;
   overflow: auto;
@@ -335,6 +378,7 @@ pre {
 
 @media (max-width: 900px) {
   .app-shell {
+    min-width: 0;
     width: min(100% - 22px, 680px);
     align-content: start;
     padding: 18px 0;
@@ -353,6 +397,7 @@ pre {
   }
 
   .preview-stage {
+    min-width: 0;
     min-height: 560px;
   }
 
