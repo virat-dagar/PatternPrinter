@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pattern Printer</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">Pattern Printer</p>
+          <h1>Pattern Studio</h1>
+        </div>
+        <div class="header-meter" aria-label="Pattern count">
+          <strong id="patternCount">0</strong>
+          <span>patterns</span>
+        </div>
+      </header>
+
+      <section class="workspace">
+        <aside class="control-panel" aria-label="Pattern controls">
+          <section class="panel-section">
+            <div class="section-heading">
+              <span>Library</span>
+              <span id="activeCategory">All</span>
+            </div>
+            <div id="categoryTabs" class="category-tabs" aria-label="Pattern categories"></div>
+
+            <div class="field-group">
+              <label for="patternSelect">Pattern</label>
+              <select id="patternSelect"></select>
+            </div>
+          </section>
+
+          <section class="panel-section">
+            <div class="section-heading">
+              <span>Input</span>
+              <span id="dimensionMode">Lines</span>
+            </div>
+
+            <div class="field-group">
+              <label for="symbolInput">Symbol</label>
+              <input id="symbolInput" type="text" value="*" maxlength="2" autocomplete="off" />
+            </div>
+
+            <div class="field-group line-only">
+              <label for="sizeInput">Lines</label>
+              <input id="sizeInput" type="number" value="8" min="1" max="24" />
+            </div>
+
+            <div class="split-fields rectangle-only" hidden>
+              <div class="field-group">
+                <label for="widthInput">Width</label>
+                <input id="widthInput" type="number" value="14" min="1" max="40" disabled />
+              </div>
+              <div class="field-group">
+                <label for="heightInput">Height</label>
+                <input id="heightInput" type="number" value="7" min="1" max="24" disabled />
+              </div>
+            </div>
+          </section>
+
+          <section class="pattern-card" aria-label="Selected pattern details">
+            <div class="pattern-card-top">
+              <span id="categoryPill">Pyramids</span>
+              <span id="shapePill">solid</span>
+            </div>
+            <h2 id="detailTitle">Hill</h2>
+            <p id="patternDescription"></p>
+          </section>
+        </aside>
+
+        <section class="preview-stage" aria-label="Pattern preview">
+          <div class="preview-topbar">
+            <div>
+              <p class="eyebrow">Live Output</p>
+              <h2 id="previewTitle">Hill</h2>
+            </div>
+            <button id="copyButton" class="copy-button" type="button">Copy</button>
+          </div>
+
+          <div class="preview-canvas">
+            <pre id="patternOutput" aria-live="polite"></pre>
+          </div>
+
+          <footer class="output-footer">
+            <span id="rowCount">0 rows</span>
+            <span id="charCount">0 chars</span>
+          </footer>
+        </section>
+      </section>
+    </main>
+    <script src="/script.js"></script>
+  </body>
+</html>
