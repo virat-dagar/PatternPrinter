@@ -2,12 +2,6 @@ from dataclasses import dataclass
 from typing import Callable
 
 
-MAX_SIZE = 50
-DEFAULT_SIZE = 5
-DEFAULT_WIDTH = 5
-DEFAULT_HEIGHT = 5
-
-
 @dataclass(frozen=True)
 class PatternSpec:
     id: str
@@ -334,30 +328,18 @@ def get_pattern(pattern_id: str) -> PatternSpec | None:
     return next((spec for spec in PATTERN_SPECS if spec.id == pattern_id), None)
 
 
-def render_pattern(
-    pattern_id: str,
-    symbol: str = "*",
-    size: int = DEFAULT_SIZE,
-    width: int = DEFAULT_WIDTH,
-    height: int = DEFAULT_HEIGHT,
-) -> str:
+def render_pattern(pattern_id: str, symbol: str = "*", size: int = 6, width: int = 12, height: int = 6) -> str:
     spec = get_pattern(pattern_id)
     if spec is None:
-        raise ValueError("Invalid pattern.")
+        raise ValueError("Unknown pattern.")
 
     clean_symbol = (symbol or "*")[:2]
-    renderer = PATTERN_RENDERERS.get(pattern_id)
-
-    if renderer is None:
-        raise ValueError("Invalid pattern.")
+    renderer = PATTERN_RENDERERS[pattern_id]
 
     if spec.requires_rectangle:
-        validate_range(width, "width")
-        validate_range(height, "height")
-        rows = renderer(clean_symbol, width, height)
+        rows = renderer(clean_symbol, _clamp(width, 1, 40), _clamp(height, 1, 24))
     else:
-        validate_range(size, "size")
-        rows = renderer(clean_symbol, size)
+        rows = renderer(clean_symbol, _clamp(size, 1, 24))
 
     return "\n".join(rows)
 
@@ -377,6 +359,5 @@ def _wing_line(symbol: str, row: int, size: int) -> str:
     return wing + outer_gap + wing
 
 
-def validate_range(value: int, name: str) -> None:
-    if not isinstance(value, int) or value < 1 or value > MAX_SIZE:
-        raise ValueError(f"{name} must be between 1 and {MAX_SIZE}")
+def _clamp(value: int, minimum: int, maximum: int) -> int:
+    return max(minimum, min(maximum, int(value)))
