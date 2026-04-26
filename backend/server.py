@@ -9,6 +9,10 @@ from backend.patterns import get_pattern, list_patterns, render_pattern
 
 ROOT = Path(__file__).resolve().parents[1]
 FRONTEND_DIR = ROOT / "frontend"
+MAX_SIZE = 50
+DEFAULT_SIZE = 5
+DEFAULT_WIDTH = 5
+DEFAULT_HEIGHT = 5
 
 
 class PatternPrinterHandler(SimpleHTTPRequestHandler):
@@ -36,23 +40,26 @@ class PatternPrinterHandler(SimpleHTTPRequestHandler):
 
     def _handle_render(self, query: str) -> None:
         params = parse_qs(query)
-        pattern_id = _first(params, "pattern", "hill")
-        spec = get_pattern(pattern_id)
-
-        if spec is None:
-            self._send_json({"error": "Unknown pattern."}, 404)
-            return
 
         try:
+            pattern_id = _first(params, "pattern", "hill")
+            spec = get_pattern(pattern_id)
+
+            if spec is None:
+                raise ValueError("Invalid pattern.")
+
             result = render_pattern(
                 pattern_id=pattern_id,
                 symbol=_first(params, "symbol", "*"),
-                size=_as_int(_first(params, "size", "6")),
-                width=_as_int(_first(params, "width", "12")),
-                height=_as_int(_first(params, "height", "6")),
+                size=get_int(params, "size", DEFAULT_SIZE),
+                width=get_int(params, "width", DEFAULT_WIDTH),
+                height=get_int(params, "height", DEFAULT_HEIGHT),
             )
         except ValueError as error:
             self._send_json({"error": str(error)}, 400)
+            return
+        except Exception:
+            self._send_json({"error": "Internal server error"}, 500)
             return
 
         self._send_json({"pattern": spec.__dict__, "output": result})
@@ -70,11 +77,19 @@ def _first(params: dict[str, list[str]], key: str, default: str) -> str:
     return params.get(key, [default])[0]
 
 
-def _as_int(value: str) -> int:
+def get_int(params: dict[str, list[str]], param: str, default: int) -> int:
     try:
-        return int(value)
-    except ValueError:
-        return 1
+        value = int(_first(params, param, str(default)))
+    except ValueError as error:
+        raise ValueError(f"{param} must be an integer") from error
+
+    validate_range(value, param)
+    return value
+
+
+def validate_range(value: int, name: str) -> None:
+    if not isinstance(value, int) or value < 1 or value > MAX_SIZE:
+        raise ValueError(f"{name} must be between 1 and {MAX_SIZE}")
 
 
 def main() -> None:
