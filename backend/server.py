@@ -1,5 +1,6 @@
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import json
+import os
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
@@ -22,6 +23,10 @@ class PatternPrinterHandler(SimpleHTTPRequestHandler):
 
         if parsed.path == "/api/render":
             self._handle_render(parsed.query)
+            return
+
+        if parsed.path == "/health":
+            self._send_json({"status": "ok"})
             return
 
         if parsed.path == "/":
@@ -73,8 +78,10 @@ def _as_int(value: str) -> int:
 
 
 def main() -> None:
-    server = ThreadingHTTPServer(("127.0.0.1", 8000), PatternPrinterHandler)
-    print("Pattern Printer is running at http://127.0.0.1:8000")
+    host = os.getenv("HOST", "0.0.0.0")
+    port = int(os.getenv("PORT", "8000"))
+    server = ThreadingHTTPServer((host, port), PatternPrinterHandler)
+    print(f"Pattern Printer is running on {host}:{port}")
     server.serve_forever()
 
 

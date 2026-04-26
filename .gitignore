@@ -1,3 +1,34 @@
+# macOS
+.DS_Store
+
+# Python
 __pycache__/
 *.py[cod]
-.DS_Store
+.python-version.local
+.venv/
+venv/
+env/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Test and coverage output
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Frontend dependencies/builds if the UI later moves to a bundler
+node_modules/
+dist/
+build/
+
+# Editor/project noise
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log

@@ -2,6 +2,23 @@
 
 A small full-stack pattern generator. The backend renders 31 text patterns through a JSON API, and the frontend gives the old CLI a clean modern interface.
 
+## Project Structure
+
+```txt
+PatternPrinter/
+├── backend/
+│   ├── cli.py
+│   ├── patterns.py
+│   └── server.py
+├── frontend/
+│   ├── index.html
+│   ├── script.js
+│   └── styles.css
+├── DEPLOYMENT.md
+├── render.yaml
+└── README.md
+```
+
 ## Run the Web App
 
 ```bash
@@ -19,5 +36,9 @@ Open http://127.0.0.1:8000.
 ## CLI
 
 ```bash
-python3 project_patterns.py
+python3 -m backend.cli
 ```
+
+## Deploy
+
+See [DEPLOYMENT.md](DEPLOYMENT.md).
